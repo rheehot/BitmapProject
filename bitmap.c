@@ -6,15 +6,15 @@ int readImage(IMAGE* img, char* fileName){
     FILE *fpBMP;
 
     if(img==NULL){ puts("IMAGE container is NULL!"); goto ERROR; }
-	if(!(fpBMP=fopen(fileName, "rb")))
+    if(!(fpBMP=fopen(fileName, "rb")))
         { puts("Failed to get read access to BMP file!"); goto ERROR; }
 
-	if(fread(&(img->bf),sizeof(BITMAPFILEHEADER),1,fpBMP)<1)
+    if(fread(&(img->bf),sizeof(BITMAPFILEHEADER),1,fpBMP)<1)
         { puts("FileHeader read Error!"); goto ERROR; }
-	if(img->bf.type != BM)
+    if(img->bf.type != BM)
         { puts("Unacceptable Bitmap format file!"); goto ERROR; }
 
-	if(fread(&(img->bi),sizeof(BITMAPINFOHEADER),1,fpBMP)<1)
+    if(fread(&(img->bi),sizeof(BITMAPINFOHEADER),1,fpBMP)<1)
         { puts("InfoHeader read Error!"); goto ERROR; }
     if(img->bi.size != BI_SIZE)
         { puts("Unsupported BMP info header!"); goto ERROR; }
@@ -38,7 +38,7 @@ int readImage(IMAGE* img, char* fileName){
 	if(img->padding) img->padding = PIXEL_ALIGN-(img->padding);
     
     img->sizData = ((img->bi.width)*(img->sizPxl)+img->padding)*(img->bi.height);
-	img->data=(char*)malloc(img->sizData);
+    img->data=(char*)malloc(img->sizData);
     fseek(fpBMP, img->bf.offBits, SEEK_SET);
     if(fread(img->data,img->sizData,1,fpBMP)<1)
         { puts("Failed to read BMP data!"); goto ERROR; }
@@ -46,16 +46,16 @@ int readImage(IMAGE* img, char* fileName){
     fclose(fpBMP);
 	return 1;
 
-	ERROR:
-		if(fpBMP!=NULL)
+    ERROR:
+        if(fpBMP!=NULL)
             fclose(fpBMP);
-		return 0;
+        return 0;
 }
 
 int writeImage(IMAGE* img, char* fileName){
     FILE *fpBMP;
     
-	if(!(fpBMP=fopen(fileName, "wb")))
+    if(!(fpBMP=fopen(fileName, "wb")))
         { puts("Failed to get write access to BMP file!"); goto ERROR; }
     fseek(fpBMP, 0, SEEK_SET);
     if(fwrite(&(img->bf),sizeof(BITMAPFILEHEADER),1,fpBMP)<1)
@@ -66,7 +66,7 @@ int writeImage(IMAGE* img, char* fileName){
     if(img->bf.offBits>0x36)
         if(fwrite(img->extra,img->bf.offBits-0x36,1,fpBMP)<1)
             { puts("Failed to write extra area!"); goto ERROR; }
-    
+
     fseek(fpBMP, img->bf.offBits, SEEK_SET);
     if(fwrite(img->data,img->sizData,1,fpBMP)<1)
         { puts("Failed to write BMP data!"); goto ERROR; }
@@ -74,10 +74,10 @@ int writeImage(IMAGE* img, char* fileName){
     fclose(fpBMP);
 	return 1;
 
-	ERROR:
-		if(fpBMP!=NULL)
+    ERROR:
+    	if(fpBMP!=NULL)
             fclose(fpBMP);
-		return 0;
+        return 0;
 }
 
 void freeImage(IMAGE *img){

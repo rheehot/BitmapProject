@@ -24,7 +24,6 @@ void gray16(IMAGE* img){
             *p=RGB555(gray,gray,gray);
         }
     }
-    
 }
 void gray24(IMAGE* img){
     for(RGBTRIPLE* p=((RGBTRIPLE*)(img->data+img->sizData))-1;p>=(RGBTRIPLE*)img->data;--p){
@@ -43,7 +42,7 @@ void (*grayfunc[])(IMAGE*) = {grayLess8,gray8,gray16,gray24,gray32};
 int gray(char* src, char* dst){
     IMAGE img;
     
-	if(!readImage(&img,src)) return 0;
+    if(!readImage(&img,src)) return 0;
 
     grayfunc[img.sizPxl](&img);
 

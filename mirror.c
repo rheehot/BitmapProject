@@ -43,7 +43,7 @@ void (*swapfunc[])(IMAGE*,int,int) = {swapLess8,swap8,swap16,swap24,swap32};
 int mirror(char* src, char* dst){
     IMAGE img; 
     
-	if(!readImage(&img,src)) return 0;
+    if(!readImage(&img,src)) return 0;
     void (*swap)(IMAGE*,int,int) = swapfunc[img.sizPxl];
 
     for (int y=img.bi.height-1; y>=0; --y)

@@ -37,7 +37,7 @@ void (*invfunc[])(IMAGE*) = {invertLess8,invert8,invert16,invert24,invert32};
 int invert(char* src, char* dst){
     IMAGE img;
     
-	if(!readImage(&img,src)) return 0;
+    if(!readImage(&img,src)) return 0;
 
     invfunc[img.sizPxl](&img);
 

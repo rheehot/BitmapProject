@@ -31,11 +31,11 @@ char* ascii32(IMAGE* img, int index){
 char* (*asciifunc[])(IMAGE*,int) = {asciiLess8,ascii8,ascii16,ascii24,ascii32};
 
 int toASCII(char* src, char* dst){
-	FILE *fpTXT;
-	IMAGE img;
-	if(!readImage(&img,src)) return 0;
+    FILE *fpTXT;
+    IMAGE img;
+    if(!readImage(&img,src)) return 0;
     
-	fpTXT = fopen(dst, "w");    // 결과 출력용 텍스트 파일 열기
+    fpTXT = fopen(dst, "w");    // 결과 출력용 텍스트 파일 열기
     if (fpTXT == NULL){		// 파일 열기에 실패하면
         freeImage(&img);	// 픽셀 데이터를 저장한 동적 메모리 해제
         return 0;			// 프로그램 종료
@@ -65,7 +65,7 @@ int toASCII(char* src, char* dst){
     }
 
     fclose(fpTXT);    // 텍스트 파일 닫기
-
-	freeImage(&img);
-	return 1;
+    
+    freeImage(&img);
+    return 1;
 }
