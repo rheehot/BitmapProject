@@ -1,11 +1,3 @@
-*.txt
-*_gray.bmp
-*_invert.bmp
-*_mirror.bmp
-*.vscode
-
-######Below list for C
-
 # Prerequisites
 *.d
 

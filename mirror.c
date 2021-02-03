@@ -47,9 +47,8 @@ int mirror(char* src, char* dst){
     void (*swap)(IMAGE*,int,int) = swapfunc[img.sizPxl];
 
     for (int y=img.bi.height-1; y>=0; --y)
-        for (int x=(img.bi.width>>1)-1; x>=0; --x)
+        for (int x=((img.bi.width>>1)-1); x>=0; --x)
             swap(&img,x,y);
-        
 
     if(!writeImage(&img,dst)) return 0;
     freeImage(&img);
