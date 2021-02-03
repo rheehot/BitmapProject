@@ -1,3 +1,7 @@
+*.txt
+
+######Below list for C
+
 # Prerequisites
 *.d
 
