@@ -13,24 +13,30 @@ void invert8(IMAGE* img){
     }
 }
 void invert16(IMAGE* img){
-    unsigned char r,g,b;
-    for(RGB16* p=((RGB16*)(img->data+img->sizData))-1;p>=(RGB16*)img->data;--p)
-        *p=~*p;
+    for (int y=img->bi.height-1; y>=0; --y)
+        for (int x=img->bi.width-1; x>=0; --x){
+            RGB16* p = (RGB16*) IDX(img,x,y);
+            *p=~*p;
+        }
 }
 void invert24(IMAGE* img){
-    for(RGBTRIPLE* p=((RGBTRIPLE*)(img->data+img->sizData))-1;p>=(RGBTRIPLE*)img->data;--p){
-        p->rgbtRed=~(p->rgbtRed);
-        p->rgbtGreen=~(p->rgbtGreen);
-        p->rgbtBlue=~(p->rgbtBlue);
-    }
+    for (int y=img->bi.height-1; y>=0; --y)
+        for (int x=img->bi.width-1; x>=0; --x){
+            RGBTRIPLE* p = (RGBTRIPLE*) IDX(img,x,y);
+            p->rgbtRed=~(p->rgbtRed);
+            p->rgbtGreen=~(p->rgbtGreen);
+            p->rgbtBlue=~(p->rgbtBlue);
+        }
 }
 void invert32(IMAGE* img){
-    for(RGBQUAD* p=((RGBQUAD*)(img->data+img->sizData))-1;p>=(RGBQUAD*)img->data;--p){
-        p->rgbAlpha=~(p->rgbAlpha);
-        p->rgbRed=~(p->rgbRed);
-        p->rgbGreen=~(p->rgbGreen);
-        p->rgbBlue=~(p->rgbBlue);
-    }
+    for (int y=img->bi.height-1; y>=0; --y)
+        for (int x=img->bi.width-1; x>=0; --x){
+            RGBQUAD* p = (RGBQUAD*) IDX(img,x,y);
+            p->rgbAlpha=~(p->rgbAlpha);
+            p->rgbRed=~(p->rgbRed);
+            p->rgbGreen=~(p->rgbGreen);
+            p->rgbBlue=~(p->rgbBlue);
+        }
 }
 void (*invfunc[])(IMAGE*) = {invertLess8,invert8,invert16,invert24,invert32};
 

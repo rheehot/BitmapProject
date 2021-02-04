@@ -11,31 +11,38 @@ void gray8(IMAGE* img){
     }
 }
 void gray16(IMAGE* img){
-    unsigned char r,g,b;
     if(img->bi.compression){
-        for(RGB16* p=((RGB16*)(img->data+img->sizData))-1;p>=(RGB16*)img->data;--p){
-            unsigned short gray = (R565(*p) + (G565(*p)>>1) + B565(*p)) / 3;
-            *p=RGB565(gray,gray<<1,gray);
-        }
+        for (int y=img->bi.height-1; y>=0; --y)
+            for (int x=img->bi.width-1; x>=0; --x){
+                RGB16* p = (RGB16*) IDX(img,x,y);
+                unsigned short gray = (R565(*p) + (G565(*p)>>1) + B565(*p)) / 3;
+                *p=RGB565(gray,gray<<1,gray);
+            }
     }
     else{
-        for(RGB16* p=((RGB16*)(img->data+img->sizData))-1;p>=(RGB16*)img->data;--p){
-            unsigned short gray = ( R555(*p) + G555(*p) + B555(*p) ) /3;
-            *p=RGB555(gray,gray,gray);
-        }
+        for (int y=img->bi.height-1; y>=0; --y)
+            for (int x=img->bi.width-1; x>=0; --x){
+                RGB16* p = (RGB16*) IDX(img,x,y);
+                unsigned short gray = ( R555(*p) + G555(*p) + B555(*p) ) /3;
+                *p=RGB555(gray,gray,gray);
+            }
     }
 }
 void gray24(IMAGE* img){
-    for(RGBTRIPLE* p=((RGBTRIPLE*)(img->data+img->sizData))-1;p>=(RGBTRIPLE*)img->data;--p){
-        p->rgbtRed=p->rgbtGreen=p->rgbtBlue
-            = ( (p->rgbtRed) + (p->rgbtGreen) + (p->rgbtBlue) ) / 3;
-    }
+    for (int y=img->bi.height-1; y>=0; --y)
+        for (int x=img->bi.width-1; x>=0; --x){
+            RGBTRIPLE* p = (RGBTRIPLE*) IDX(img,x,y);
+            p->rgbtRed=p->rgbtGreen=p->rgbtBlue
+                = ( (p->rgbtRed) + (p->rgbtGreen) + (p->rgbtBlue) ) / 3;
+        }
 }
 void gray32(IMAGE* img){
-    for(RGBQUAD* p=((RGBQUAD*)(img->data+img->sizData))-1;p>=(RGBQUAD*)img->data;--p){
-        p->rgbRed=p->rgbGreen=p->rgbBlue
-            = ( (p->rgbRed) + (p->rgbGreen) + (p->rgbBlue) ) / 3;
-    }
+    for (int y=img->bi.height-1; y>=0; --y)
+        for (int x=img->bi.width-1; x>=0; --x){
+            RGBQUAD* p = (RGBQUAD*) IDX(img,x,y);
+            p->rgbRed=p->rgbGreen=p->rgbBlue
+                = ( (p->rgbRed) + (p->rgbGreen) + (p->rgbBlue) ) / 3;
+        }
 }
 void (*grayfunc[])(IMAGE*) = {grayLess8,gray8,gray16,gray24,gray32};
 

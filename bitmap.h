@@ -23,7 +23,7 @@ typedef struct _BITMAPINFOHEADER{    // BMP info header Structure(DIB header)
     int            width;          // The Width of Bitmap
     int            height;         // The Height of Bitmap
     unsigned short planes;         // The # of planes (must be set to 1)
-    unsigned short bitCount;       // The # of bits per pixel (24 for 24bit bitmap)
+    unsigned short bitCount;       // The # of bits per pixel (24 for 24 bitmap)
     unsigned int   compression;    // The type of compression for bottom-up bitmap
     unsigned int   sizeImage;      // The size(byte) of image data only (Pixel Array)
     int            xPelsPerMeter;  // The horizonatal resolution (pixel per meter)
@@ -37,7 +37,7 @@ typedef struct _BITMAPINFOHEADER{    // BMP info header Structure(DIB header)
     int            width;          // The Width of Bitmap
     int            height;         // The Height of Bitmap
     unsigned short planes;         // The # of planes (must be set to 1)
-    unsigned short bitCount;       // The # of bits per pixel (24 for 24bit bitmap)
+    unsigned short bitCount;       // The # of bits per pixel (24 for 24 bitmap)
     unsigned int   compression;    // The type of compression for bottom-up bitmap
     unsigned int   sizeImage;      // The size(byte) of image data only (Pixel Array)
     int            xPelsPerMeter;  // The horizonatal resolution (pixel per meter)
@@ -88,6 +88,8 @@ typedef struct{
     int sizData, sizPxl, padding;
     // (size of Image Data only (Pixel Array)), (Bytes per Pixel), (Padding size when width is not multiple of 4)
 } IMAGE;
+
+#define IDX(IMG,X,Y) (((IMG)->data)+((Y)*((((IMG)->bi.width)*((IMG)->sizPxl)+((IMG)->padding)))) + ((X)*((IMG)->sizPxl)))
 
 int readImage(IMAGE* img,char* fileName);
 int writeImage(IMAGE* img, char* fileName);
