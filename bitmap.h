@@ -98,5 +98,6 @@ int toASCII(char* src, char* dst);
 int gray(char* src, char* dst);
 int invert(char* src, char* dst);
 int mirror(char* src, char* dst);
+int contrast(char* src,char* dst);
 
 #endif

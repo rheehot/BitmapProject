@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -c -g
 #LDFLAGS = <링크 옵션>
 #LDLIBS = <링크 라이브러리 목록>
-OBJS = main.o ascii.o bitmap.o gray.o invert.o mirror.o
+OBJS = main.o ascii.o bitmap.o contrast.o gray.o invert.o mirror.o
 TARGET = Bitmap
 
 run: $(TARGET)
@@ -23,6 +23,9 @@ ascii.o : ascii.c
 
 bitmap.o : bitmap.c
 	$(CC) $(CFLAGS) bitmap.c
+
+contrast.o : contrast.c
+	$(CC) $(CFLAGS) contrast.c 
 
 gray.o : gray.c
 	$(CC) $(CFLAGS) gray.c 
