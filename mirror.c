@@ -1,7 +1,5 @@
 #include "bitmap.h"
 
-#define IDX2(IMG,X,Y) (((IMG)->data)+((Y)*(((IMG)->bi.width)*((IMG)->sizPxl)) + ((Y)*((IMG)->padding))) + ((((IMG)->bi.width)-(X)-1)*((IMG)->sizPxl)))
-
 void swapLess8(IMAGE* img, int x, int y){
     //TODO: processing
     //index 1 (y*(img.bi.width*img.bi.bitCount)/8 + (y*img.padding)) + (x*img.bi.bitCount)/8
@@ -10,14 +8,14 @@ void swapLess8(IMAGE* img, int x, int y){
 }
 void swap8(IMAGE* img, int x, int y){
     unsigned char* a = (unsigned char *)IDX(img,x,y);
-    unsigned char* b = (unsigned char *)IDX2(img,x,y);
+    unsigned char* b = (unsigned char *)IDX(img,(img->bi.width-x-1),y);
     unsigned char tmp = *a;
     *a = *b;
     *b = tmp;
 }
 void swap16(IMAGE* img, int x, int y){
     RGB16* a = (RGB16 *)IDX(img,x,y);
-    RGB16* b = (RGB16 *)IDX2(img,x,y);
+    RGB16* b = (RGB16 *)IDX(img,(img->bi.width-x-1),y);
     RGB16 tmp = *a;
     *a = *b;
     *b = tmp;
@@ -25,14 +23,14 @@ void swap16(IMAGE* img, int x, int y){
 }
 void swap24(IMAGE* img, int x, int y){
     RGBTRIPLE* a = (RGBTRIPLE *)IDX(img,x,y);
-    RGBTRIPLE* b = (RGBTRIPLE *)IDX2(img,x,y);
+    RGBTRIPLE* b = (RGBTRIPLE *)IDX(img,(img->bi.width-x-1),y);
     RGBTRIPLE tmp = *a;
     *a = *b;
     *b = tmp;
 }
 void swap32(IMAGE* img, int x, int y){
     RGBQUAD* a = (RGBQUAD *)IDX(img,x,y);
-    RGBQUAD* b = (RGBQUAD *)IDX2(img,x,y);
+    RGBQUAD* b = (RGBQUAD *)IDX(img,(img->bi.width-x-1),y);
     RGBQUAD tmp = *a;
     *a = *b;
     *b = tmp;
